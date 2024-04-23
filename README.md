@@ -6,7 +6,11 @@ Setup:
  * LED matrix, 8 of them, setup in a "V-Mapper:Z" formation (ours is 192x192, made up of 8 96x48 panels). I got the panels from [Waveshare](https://www.waveshare.com/rgb-matrix-p2.5-96x48-f.htm) but you can find them cheaper on [AliExpress](https://www.aliexpress.com/item/1005004448605301.html) (with longer shipping) 
  * A "hat" with two parallel connections for the panel, we use [HAT-A3](https://www.acmesystems.it/HAT-A3). 
  * [A power supply enough for the panels & Pi, 40A](https://www.amazon.com/dp/B01D8FLYW6)
- * [rpi-rgb-led-matrix](https://github.com/hzeller/rpi-rgb-led-matrix) on the Pi
+ * [rpi-rgb-led-matrix](https://github.com/hzeller/rpi-rgb-led-matrix) installed on the Pi
+ * Processing, running on a separate computer, with slight modifications to draw the frames to the LED matrix.
+
+
+## Panel setup
 
 We set up the HAT-A3 to use [Pin 8 for E, by joining the pads](https://github.com/hzeller/rpi-rgb-led-matrix?tab=readme-ov-file#64x64-with-e-line-on-adafruit-hatbonnet)
 
@@ -44,7 +48,10 @@ O  0  I     O  6  I     O 12  I
  Pi TOP    Pi MIDDLE   Pi BOTTOM
 ```
 
-On boot, the Pi runs this bash script (set up in `/etc/rc.local`), and in `/home/led/run.sh`. This sets up the parameters of the panel. Edit this to change them if you want to play with the various tunings of the panel. See [the rpi-rgb-led-matrix docs](https://github.com/hzeller/rpi-rgb-led-matrix) for the explanations.
+
+# Pi network RGB panel setup
+
+On boot, the Pi runs this bash script (called in `/etc/rc.local`), with code in `/home/led/run.sh`. This sets up the parameters of the panel. Edit this to change them if you want to play with the various tunings of the panel. See [the rpi-rgb-led-matrix docs](https://github.com/hzeller/rpi-rgb-led-matrix) for the explanations.
 
 
 ```bash
@@ -64,9 +71,9 @@ done
 The program it runs is `ledcat`, which reads LED data in from STDIN. We use a pipe to instead give it the output of `nc` / netcat, listening on TCP port 2117. The bash script will restart the listener when data stops coming in, so that you can stop and start your Processing scripts without having to restart the Pi. 
 
 
-## Run Processing scripts on the LED Matrix:
+## Run your Processing scripts on the LED Matrix
 
-There's an example animation in `ledtest` here. If you download that and run it on the same Wi-Fi as the Pi, you should see the animation both on your computer screen and on the matrix. For your own Processing animations, all you have to do in Processsing is set the screen size to 192,192 and add these lines to `setup()`:
+There's an example animation called [`ledtest`](https://github.com/bwhitman/led-matrix-processing/blob/main/ledtest/ledtest.pde) here. If you download that and run it on the same Wi-Fi as the Pi, you should see the animation both on your computer screen and on the matrix. For your own Processing animations, all you have to do in Processsing is set the screen size to 192,192 and add these lines to `setup()`:
 
 ```c
 Client client; // network client for the ledmatrix
@@ -107,6 +114,31 @@ If you want even more performance, the Pi can run Processing natively. Processin
 ## Other examples
 
 The `rpi-rgb-led-matrix` has a bunch of examples to try with lower-level bindings for C and Python, if you're interested in further experimentation. Just make sure `run.sh` is not running (`killall run.sh`) and then `cd rpi-rgb-led-matrix/examples-api-use`. [You can see the docs for the examples here.](https://github.com/hzeller/rpi-rgb-led-matrix/tree/master/examples-api-use)
+
+
+## Login details for the Pi
+
+The Pi is set with the IP `led.local`, which should work from your network to find it.
+
+On my network, i find that sometimes resolving `led.local` slows down, so I often just use the IP address directly. You can find it by
+
+```
+% ping led.local
+PING led.local (192.168.50.59): 56 data bytes
+```
+
+From your computer Terminal.
+
+
+To log in, use:
+```
+# ssh led@led.local
+```
+
+The default username is `led` and the password is `ledmatrix`.
+
+
+
 
 
 

@@ -6,7 +6,7 @@ int panel_w = 192; // panel width
 int panel_h = 192; // panel height
 
 Client client; // network client for the ledmatrix
-String ledmatrix_ip = "192.168.50.59"; // ip address of display, can be "x.local" or "192.168.x.x" 
+String ledmatrix_ip = "led.local"; // ip address of display, can be "x.local" or "192.168.x.x" 
 byte[] frame= new byte[panel_w*panel_h*3]; // storage for frame to send to panel
 
 int start = 0;
