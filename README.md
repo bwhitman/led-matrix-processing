@@ -12,7 +12,7 @@ Setup:
  * [Processing](https://processing.org), running on a separate computer on the same network, with slight modifications to draw the frames to the LED matrix.
 
 
-## Panel setup
+## Physical panel setup
 
 We set up the HAT-A3 to use [Pin 8 for E, by joining the pads](https://github.com/hzeller/rpi-rgb-led-matrix?tab=readme-ov-file#64x64-with-e-line-on-adafruit-hatbonnet)
 
@@ -31,6 +31,12 @@ O  0  I     O  4  I
 ```
 
 This is "V-Mapper:Z", where every other panel is inverted, to have shorter cables. [See more on mappers](https://github.com/hzeller/rpi-rgb-led-matrix/tree/master/examples-api-use#remapping-coordinates)
+
+We also route power from a 40A power supply to the panels using the Y cables.
+
+We route power from the 40A power supply to the Pi via the 5V input on the "HAT-A3". You don't need to connect ground as the panels supply it through the 16-pin connectors. 
+
+### More panels
 
 If you wanted to add more (for example, 10 more panels to make it a square 288x288) you can use the third parallel connector, and set `--led-parallel=3` and `--led-chain==6`. 
 
@@ -51,7 +57,7 @@ O  0  I     O  6  I     O 12  I
 ```
 
 
-# Pi network RGB panel setup
+## Pi network RGB panel setup
 
 On boot, the Pi runs this bash script (called in `/etc/rc.local`), with code in `/home/led/run.sh`. This sets up the parameters of the panel. Edit this to change them if you want to play with the various tunings of the panel. See [the rpi-rgb-led-matrix docs](https://github.com/hzeller/rpi-rgb-led-matrix) for the explanations.
 
@@ -74,7 +80,7 @@ done
 The program it runs is `ledcat`, which reads LED data in from STDIN. We use a pipe to instead give it the output of `nc` / netcat, listening on TCP port 2117. The bash script will restart the listener when data stops coming in, so that you can stop and start your Processing scripts without having to restart the Pi. 
 
 
-## Run your Processing scripts on the LED Matrix
+## Run your Processing scripts on the LED Matrix from your computer
 
 There's an example animation called [`ledtest`](https://github.com/bwhitman/led-matrix-processing/blob/main/ledtest/ledtest.pde) here. If you download that and run it on the same Wi-Fi as the Pi, you should see the animation both on your computer screen and on the matrix. For your own Processing animations, all you have to do in Processsing is set the screen size to 192,192 and add these lines to `setup()`:
 
@@ -112,7 +118,9 @@ void displayOnMatrix() {
 
 This will emit the current frame to the Pi, which will show it on the LED matrix. You can run this from your computer on the same Wi-Fi. I can easily get up to 60FPS on a 192x192 panel.
 
-If you want even more performance, the Pi can run Processing natively. Processing is installed on the Pi. You can connect an HDMI monitor and keyboard (or use a VNC connection) and run your scripts locally on the Pi. It will be faster as it won't have to use the network to transmit data. (You would want to change `ledmatrix_ip` to `localhost`.)
+## Run Processing directly on the Pi
+
+If you want even more performance, or want to run animations without needing a computer running, the Pi can run Processing natively. Processing is installed on the Pi. You can connect an HDMI monitor and keyboard (or use a VNC connection) and run your scripts locally on the Pi. It will be faster as it won't have to use the network to transmit data. (You would want to change `ledmatrix_ip` to `localhost`.)
 
 ## Other examples
 
