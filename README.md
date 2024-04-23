@@ -1,13 +1,15 @@
 # led-matrix-processing
 
+I gave a friend a square LED matrix for him to draw his animations on in Processing for his birthday. Here's the writeup on how I did that:
+
 Setup:
 
- * Raspberry Pi 4 running 64 bit Pi OS lite
+ * [Raspberry Pi 4](https://www.amazon.com/Raspberry-Model-2019-Quad-Bluetooth/dp/B07TC2BK1X) with 32GB microSD card running 64 bit Pi OS lite
  * LED matrix, 8 of them, setup in a "V-Mapper:Z" formation (ours is 192x192, made up of 8 96x48 panels). I got the panels from [Waveshare](https://www.waveshare.com/rgb-matrix-p2.5-96x48-f.htm) but you can find them cheaper on [AliExpress](https://www.aliexpress.com/item/1005004448605301.html) (with longer shipping) 
- * A "hat" with two parallel connections for the panel, we use [HAT-A3](https://www.acmesystems.it/HAT-A3). 
+ * A "hat" for the Pi with parallel connections for the panel, we use [HAT-A3](https://www.acmesystems.it/HAT-A3). 
  * [A power supply enough for the panels & Pi, 40A](https://www.amazon.com/dp/B01D8FLYW6)
  * [rpi-rgb-led-matrix](https://github.com/hzeller/rpi-rgb-led-matrix) installed on the Pi
- * Processing, running on a separate computer, with slight modifications to draw the frames to the LED matrix.
+ * [Processing](https://processing.org), running on a separate computer on the same network, with slight modifications to draw the frames to the LED matrix.
 
 
 ## Panel setup
@@ -60,7 +62,8 @@ On boot, the Pi runs this bash script (called in `/etc/rc.local`), with code in 
 # You can edit the settings here for the panel if you'd like. 
 while true;
 do
-    nc  -l 2117 | sudo /home/led/rpi-rgb-led-matrix/examples-api-use/ledcat --led-cols=96 --led-rows=48 --led-chain=4 --led-parallel=2 \
+    nc  -l 2117 | sudo /home/led/rpi-rgb-led-matrix/examples-api-use/ledcat \
+        --led-cols=96 --led-rows=48 --led-chain=4 --led-parallel=2 \
         --led-pixel-mapper='Rotate:180;V-mapper:Z;Mirror:V;Mirror:H' \
         --led-pwm-lsb-nanoseconds 130 --led-pwm-bits=11  --led-slowdown-gpio=4 --led-brightness=100
     sleep 1
@@ -107,9 +110,9 @@ void displayOnMatrix() {
 }
 ```
 
-This will emit the current frame to the Pi, which will show it on the LED matrix. You can run this from your comptuer on the same Wi-Fi. I can easily get up to 60FPS on a 192x192 panel.
+This will emit the current frame to the Pi, which will show it on the LED matrix. You can run this from your computer on the same Wi-Fi. I can easily get up to 60FPS on a 192x192 panel.
 
-If you want even more performance, the Pi can run Processing natively. Processing is installed on the Pi. You can connect an HDMI monitor and keyboard (or use a VNC connection) and run your scripts locally on the Pi. It will be faster as it won't have to use the network to transmit data. 
+If you want even more performance, the Pi can run Processing natively. Processing is installed on the Pi. You can connect an HDMI monitor and keyboard (or use a VNC connection) and run your scripts locally on the Pi. It will be faster as it won't have to use the network to transmit data. (You would want to change `ledmatrix_ip` to `localhost`.)
 
 ## Other examples
 
