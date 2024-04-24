@@ -64,7 +64,7 @@ On boot, the Pi runs this bash script (called in `/etc/rc.local`), with code in 
 
 ```bash
 #!/bin/bash
-# This runs the "server" that listems to TCP packets on port 2117 and shows them on the screen
+# This runs the "server" that listens to TCP packets on port 2117 and shows them on the screen
 # You can edit the settings here for the panel if you'd like. 
 while true;
 do
