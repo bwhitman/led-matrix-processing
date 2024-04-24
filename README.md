@@ -151,7 +151,7 @@ If you want even more performance, or want to run animations without needing a c
 
 ## Other examples, direct control 
 
-The `rpi-rgb-led-matrix` has a bunch of examples to try with lower-level bindings for C and Python, if you're interested in further experimentation. Just make sure `run.sh` is not running by editing /etc/rc.local and putting a `#` in front of the `/home/led/run.sh` command (so it looks like `#/home/led/run.sh` and doesn't run it at boot. Unplug/replug the matrix, log in again and then `cd rpi-rgb-led-matrix/examples-api-use`. [You can see the docs for the examples here.](https://github.com/hzeller/rpi-rgb-led-matrix/tree/master/examples-api-use)
+The `rpi-rgb-led-matrix` has a bunch of examples to try with lower-level bindings for C and Python, if you're interested in further experimentation. Just make sure `run.sh` is not running by editing /etc/rc.local and putting a `#` in front of the `/home/led/run.sh` command so it looks like `#/home/led/run.sh` and doesn't run it at boot. Unplug/replug the matrix, log in again and then `cd rpi-rgb-led-matrix/examples-api-use`. [You can see the docs for the examples here.](https://github.com/hzeller/rpi-rgb-led-matrix/tree/master/examples-api-use)
 
 
 
