@@ -88,11 +88,13 @@ There's an example animation called [`ledtest` that you can download here.](http
 import processing.net.*;
 
 Client client; // network client for the ledmatrix
-String ledmatrix_ip = "led.local"; // ip address of display, can be "x.local" or "192.168.x.x" 
+String ledmatrix_ip = "led.local"; // ip address of display, can be "x.local" or "x.x.x.x" 
+int panel_w = 192; // panel width
+int panel_h = 192; // panel height
 byte[] frame= new byte[panel_w*panel_h*3]; // storage for frame to send to panel
 
 void setup() {
-    size(192, 192);
+    size(panel_w, panel_h);
     client = new Client(this, ledmatrix_ip, 2117);
     ...
 ```
