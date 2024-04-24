@@ -64,7 +64,7 @@ On boot, the Pi runs this bash script (called in `/etc/rc.local`), with code in 
 
 ```bash
 #!/bin/bash
-# This runs the "server" that listes to TCP packets on port 2117 and shows them on the screen
+# This runs the "server" that listems to TCP packets on port 2117 and shows them on the screen
 # You can edit the settings here for the panel if you'd like. 
 while true;
 do
@@ -118,15 +118,6 @@ void displayOnMatrix() {
 
 This will emit the current frame to the Pi, which will show it on the LED matrix. You can run this from your computer on the same Wi-Fi. I can easily get up to 60FPS on a 192x192 panel.
 
-## Run Processing directly on the Pi
-
-If you want even more performance, or want to run animations without needing a computer running, the Pi can run Processing natively. Processing is installed on the Pi. You can connect an HDMI monitor and keyboard (or use a VNC connection) and run your scripts locally on the Pi. It will be faster as it won't have to use the network to transmit data. (You would want to change `ledmatrix_ip` to `localhost`.)
-
-## Other examples
-
-The `rpi-rgb-led-matrix` has a bunch of examples to try with lower-level bindings for C and Python, if you're interested in further experimentation. Just make sure `run.sh` is not running (`killall run.sh`) and then `cd rpi-rgb-led-matrix/examples-api-use`. [You can see the docs for the examples here.](https://github.com/hzeller/rpi-rgb-led-matrix/tree/master/examples-api-use)
-
-
 ## Login details for the Pi
 
 The Pi is set with the IP `led.local`, which should work from your network to find it.
@@ -140,7 +131,6 @@ PING led.local (192.168.50.59): 56 data bytes
 
 From your computer Terminal.
 
-
 To log in, use:
 ```
 # ssh led@led.local
@@ -148,6 +138,15 @@ To log in, use:
 
 The default username is `led` and the password is `ledmatrix`.
 
+You can also log into graphically using a [VNC client](https://www.realvnc.com/en/connect/download/viewer/macos/), just connect to `led.local` with `led` / `ledmatrix` as the login. You'll be able to see the user interface. 
+
+## Run Processing directly on the Pi
+
+If you want even more performance, or want to run animations without needing a computer running, the Pi can run Processing natively. Processing is installed on the Pi. You can connect an HDMI monitor and keyboard (or use a VNC connection) and run your scripts locally on the Pi. It will be faster as it won't have to use the network to transmit data. (You would want to change `ledmatrix_ip` to `localhost`.)
+
+## Other examples, direct control 
+
+The `rpi-rgb-led-matrix` has a bunch of examples to try with lower-level bindings for C and Python, if you're interested in further experimentation. Just make sure `run.sh` is not running by editing /etc/rc.local and putting a `#` in front of the `/home/led/run.sh` command (so it looks like `#/home/led/run.sh` and doesn't run it at boot. Unplug/replug the matrix, log in again and then `cd rpi-rgb-led-matrix/examples-api-use`. [You can see the docs for the examples here.](https://github.com/hzeller/rpi-rgb-led-matrix/tree/master/examples-api-use)
 
 
 
