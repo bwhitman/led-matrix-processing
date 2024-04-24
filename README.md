@@ -85,11 +85,14 @@ The program it runs is `ledcat`, which reads LED data in from STDIN. We use a pi
 There's an example animation called [`ledtest` that you can download here.](https://github.com/bwhitman/led-matrix-processing/blob/main/ledtest/ledtest.pde) If you download that and run it on the same Wi-Fi as the Pi, you should see the animation both on your computer screen and on the matrix. For your own Processing animations, all you have to do in Processsing is set the screen size to 192,192 and add these lines to `setup()`:
 
 ```c
+import processing.net.*;
+
 Client client; // network client for the ledmatrix
 String ledmatrix_ip = "led.local"; // ip address of display, can be "x.local" or "192.168.x.x" 
 byte[] frame= new byte[panel_w*panel_h*3]; // storage for frame to send to panel
 
 void setup() {
+    size(192, 192);
     client = new Client(this, ledmatrix_ip, 2117);
     ...
 ```
