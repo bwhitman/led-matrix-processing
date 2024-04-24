@@ -82,7 +82,7 @@ The program it runs is `ledcat`, which reads LED data in from STDIN. We use a pi
 
 ## Run your Processing scripts on the LED Matrix from your computer
 
-There's an example animation called [`ledtest`](https://github.com/bwhitman/led-matrix-processing/blob/main/ledtest/ledtest.pde) here. If you download that and run it on the same Wi-Fi as the Pi, you should see the animation both on your computer screen and on the matrix. For your own Processing animations, all you have to do in Processsing is set the screen size to 192,192 and add these lines to `setup()`:
+There's an example animation called [`ledtest` that you can download here.](https://github.com/bwhitman/led-matrix-processing/blob/main/ledtest/ledtest.pde) If you download that and run it on the same Wi-Fi as the Pi, you should see the animation both on your computer screen and on the matrix. For your own Processing animations, all you have to do in Processsing is set the screen size to 192,192 and add these lines to `setup()`:
 
 ```c
 Client client; // network client for the ledmatrix
