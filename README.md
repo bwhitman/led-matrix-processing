@@ -1,6 +1,6 @@
 # led-matrix-processing
 
-I gave a friend a square LED matrix for him to draw his animations on in Processing for his birthday. Here's the writeup on how I did that:
+I gave a friend a square LED matrix for him to draw his animations on in Processing for his birthday. [If you're him, just plug it in and skip ahead to the section on running Processing scripts](#run-your-processing-scripts-on-the-led-matrix-from-your-computer). If you're interested in making your own, here's the writeup on how I did that:
 
 Setup:
 
